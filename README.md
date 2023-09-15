@@ -10,6 +10,7 @@
     - [ASN 12076](#asn-12076)
     - [A "normal" Public ASN](#a-normal-public-asn)
     - [A possible solution - Reserved Public ASN](#a-possible-solution---reserved-public-asn)
+- [Appendix A - Combinations of Public and Private ASN](#appendix-a---combinations-of-public-and-private-asn)
 
 <!-- /TOC -->
 
@@ -93,5 +94,54 @@ _Route is propagated to customer with prepend (Assuming of course they are not A
 <br>
 ![](images/2023-09-07-12-53-04.png)
 
+# Appendix A - Combinations of Public and Private ASN
+
+[Add Context]
 
 
+Examples of this behaviour are documented by some popular networking vendors 
+
+E.g. Juniper [here](https://www.juniper.net/documentation/us/en/software/junos/bgp/topics/ref/statement/remove-private-edit-protocols-bgp.html#:~:text=The%20routing%20device%20stops%20searching%20for%20private%20ASs%20when%20it%20finds%20the%20first%20nonprivate%20AS%20or%20a%20peer%E2%80%99s%20private%20AS.) 
+```
+VWAN Route-Map Prepend: <no prepend>
+Observed AS Path OnPremise: 12076
+
+VWAN Route-Map Prepend: 65113,65111,65112,65113
+Observed AS Path OnPremise: 12076
+
+VWAN Route-Map Prepend: 1234,1234,1234
+Observed AS Path OnPremise: 12076 1234 1234 1234
+
+VWAN Route-Map Prepend: 65113,1234,65111,65112,65113
+Observed AS Path OnPremise: 12076 1234 65111 65112 65113
+
+VWAN Route-Map Prepend: 65113,65113,1234,65111,65112,65113
+Observed AS Path OnPremise: 12076 1234 65111 65112 65113
+
+VWAN Route-Map Prepend: 1234,65111,65112,65113
+Observed AS Path OnPremise: 12076 1234 65111 65112 65113
+```
+
+E.g. Cisco [here](https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13756-32.html#:~:text=If%20the%20AS_PATH%20includes%20both%20private%20and%20public%20AS%20numbers%2C%20BGP%20doesn%27t%20remove%20the%20private%20AS%20numbers).
+
+```
+VWAN Route-Map Prepend: <no prepend>
+Observed AS Path OnPremise: 12076
+
+VWAN Route-Map Prepend: 65113,65111,65112,65113
+Observed AS Path OnPremise: 12076
+
+VWAN Route-Map Prepend: 1234,1234,1234
+Observed AS Path OnPremise: 12076 65515 1234 1234 1234
+
+VWAN Route-Map Prepend: 65113,1234,65111,65112,65113
+Observed AS Path OnPremise: 2076 65515 65113 1234 65111 65112 65113
+
+VWAN Route-Map Prepend: 65113,65113,1234,65111,65112,65113
+Observed AS Path OnPremise: 12076 65515 65113 65113 1234 65111 65112 65113
+
+VWAN Route-Map Prepend: 1234,65111,65112,65113
+Observed AS Path OnPremise: 12076 65515 1234 65111 65112 65113
+```
+
+-
