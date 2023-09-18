@@ -28,7 +28,7 @@ The core message of this short tech note, is to provide guidance as to which AS 
 
 # TL;DR
 
-You need to use a Public ASN when prepending with the Route-Maps feature, otherwise this will get stripped by MSEE. This article proposes the use of Reserved Public ASN for this purpose.
+You need to use a Public ASN when prepending with the Route-Maps feature, otherwise this will get stripped by MSEE. This article offers the possible use of Reserved Public ASN for this purpose.
 
 # ASN Testing
 
@@ -80,6 +80,8 @@ _Route is propagated to customer with prepend (Assuming of course they are not A
 
 As per [RFC 5398](https://datatracker.ietf.org/doc/html/rfc5398#:~:text=documentation%20purposes%2C%20namely-,64496%20%2D%2064511,-%2C%20and%20a%20contiguous) there is a block of ASN that are classified by routers as "Public", and are reserved for documentation/testing use. These ASN are in the range 64496 - 64511, and guaranteed to not overlap with either existing customer Public ASN, or any "normal" Public ASN used within the "Internet".
 
+> NB. Whilst unlikely, you should ensure that these ASN are not already in use within your private Enterprise network.
+
 The captures below show a Route-Maps prepend with ASN 64500 successfully propagating fully through to On-Premises.
 
 _VWAN Route-Map Rule, Prepend ASN 1234 1234 1234 _
@@ -95,8 +97,6 @@ _Route is propagated to customer with prepend (Assuming of course they are not A
 ![](images/2023-09-07-12-53-04.png)
 
 # Appendix A - Combinations of Public and Private ASN
-
-[Add Context]
 
 
 Examples of this behaviour are documented by some popular networking vendors 
@@ -143,4 +143,3 @@ Observed AS Path OnPremise: 12076 65515 65113 65113 1234 65111 65112 65113
 VWAN Route-Map Prepend: 1234,65111,65112,65113
 Observed AS Path OnPremise: 12076 65515 1234 65111 65112 65113
 ```
-
