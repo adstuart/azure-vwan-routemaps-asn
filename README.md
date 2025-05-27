@@ -92,7 +92,7 @@ _Route is propagated to MSEE_
 <br>
 ![](images/2023-09-07-12-52-54.png)
 
-_Route is propagated to customer with prepend (Assuming of course they are not ASN 1234 themselves)_
+_Route is propagated to customer with prepend (Assuming of course they are not ASN 64500 themselves)_
 <br>
 ![](images/2023-09-07-12-53-04.png)
 
