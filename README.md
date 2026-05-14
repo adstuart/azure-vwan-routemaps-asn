@@ -1,4 +1,4 @@
-# Azure Virtual WAN Route-Maps ASN guidance
+# Azure Virtual WAN Route Maps ASN guidance
 
 <!-- TOC -->
 
