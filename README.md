@@ -16,7 +16,7 @@
 
 # Introduction
 
-Customers making use of the Virtual WAN [route-maps](https://learn.microsoft.com/en-us/azure/virtual-wan/route-maps-about) feature (currently in public preview), for the purposes of AS-path-prepend outbound (towards On-Premises) via ExpressRoute, will expect that ASNs added to the path are preserved and sent to their CPE (connected to MSEE). They will use this behaviour to influence how their On-Premises networks send traffic to Azure. The most common scenario is shown below, and is an alternative to the traditional method of On-Premises Route Manipulation (typically by applying Local Preference to routes when they come inbound to Customer CPE).
+Customers making use of the Virtual WAN [route-maps](https://learn.microsoft.com/en-us/azure/virtual-wan/route-maps-about) feature, for the purposes of AS-path-prepend outbound (towards On-Premises) via ExpressRoute, may expect that ASNs added to the path are preserved and sent to their CPE (connected to MSEE). They will use this behaviour to influence how their On-Premises networks send traffic to Azure. The most common scenario is shown below, and is an alternative to the traditional method of On-Premises Route Manipulation (typically by applying Local Preference to routes when they come inbound to Customer CPE).
 
 ![](images/2023-09-07-12-32-19.png)
 
@@ -96,8 +96,13 @@ _Route is propagated to customer with prepend (Assuming of course they are not A
 <br>
 ![](images/2023-09-07-12-53-04.png)
 
-# Appendix A - Combinations of Public and Private ASN
+## Note on Azure VMware Solutions
 
+It is a common pattern to combine Virtual WAN Hubs with Azure VMware Solutions. The scenario this docuemnt pertains to, ASN manipulation using route-maps, is also relevant in this case because AVS Generation 1 SDDC are connected to the Virtual WAN Hub via ExpressRoute.
+
+In these scenarios, if you require a public ASN to use in order to influence how your SDDC route over multiple ExpressRoute circuits towards a VWAN Hub, and you do not own a public ASN to use for this purpose, then you can raise a Microsoft Support ticket to discuss this scenario and unblock. This should be done before looking at the above solution using reserved ASN, which may conflict with internal AVS routing.
+
+# Appendix A - Combinations of Public and Private ASN
 
 Examples of this behaviour are documented by some popular networking vendors 
 
